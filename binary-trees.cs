@@ -29,6 +29,28 @@ public class Solution
     }
     
     /*
+     * 94. Binary Tree Inorder Traversal
+     * https://leetcode.com/problems/binary-tree-inorder-traversal/
+     */
+    public IList<int> InorderTraversal(TreeNode root, IList<int> result = null)
+    {
+        if(result is null) {
+            // Initialize result
+            result = new List<int>();
+        }
+        
+        if(root is null) {
+            return result;
+        }
+        
+        InorderTraversal(root.left, result);
+        result.Add(root.val);
+        InorderTraversal(root.right, result);
+        
+        return result;
+    }
+    
+    /*
      * 144. Binary Tree Preorder Traversal
      * https://leetcode.com/problems/binary-tree-preorder-traversal/
      * 
@@ -36,8 +58,8 @@ public class Solution
      */
     public IList<int> PreorderTraversal(TreeNode root, IList<int> result = null)
     {
-        // Initialize result
         if(result is null) {
+            // Initialize result
             result = new List<int>();
         }
         
@@ -72,6 +94,28 @@ public class Solution
             
             tree = tree.left ?? stack.Pop();
         }
+        
+        return result;
+    }
+    
+    /*
+     * 145. Binary Tree Postorder Traversal
+     * https://leetcode.com/problems/binary-tree-postorder-traversal/
+     */
+    public IList<int> PostorderTraversal(TreeNode root, IList<int> result = null)
+    {
+        if(result is null) {
+            // Initialize result
+            result = new List<int>();
+        }
+        
+        if(root is null) {
+            return result;
+        }
+        
+        PostorderTraversal(root.left, result);
+        PostorderTraversal(root.right, result);
+        result.Add(root.val);
         
         return result;
     }
