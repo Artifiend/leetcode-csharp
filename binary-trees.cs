@@ -51,10 +51,78 @@ public class Solution
     }
     
     /*
+     * 102. Binary Tree Level Order Traversal
+     * https://leetcode.com/problems/binary-tree-level-order-traversal/
+     * 
+     * Recursive solution, see below for iterative.
+     */
+    public IList<IList<int>> LevelOrder(TreeNode root)
+    {
+        var result = new List<IList<int>>();
+        Helper(root, 0);
+        return result;
+        
+        void Helper(TreeNode node, int level)
+        {
+            if(node is null) {
+                return;
+            }
+            
+            if(result.Count <= level) {
+                result.Add(new List<int>());
+            }
+            
+            result[level].Add(node.val);
+            
+            level++;
+            Helper(node.left, level);
+            Helper(node.right, level);
+        }
+    }
+    // Iterative 102.
+    public IList<IList<int>> LevelOrder(TreeNode root)
+    {
+        var queue = new Queue<TreeNode>();
+        var result = new List<IList<int>>();
+        TreeNode node;
+        
+        if(root is null) {
+            return result;
+        }
+        
+        queue.Enqueue(root);
+        
+        while(queue.Count > 0)
+        {
+            var levelList = new List<int>();
+            var nextQueue = new Queue<TreeNode>();
+            
+            while(queue.Count > 0)
+            {
+                node = queue.Dequeue();
+                levelList.Add(node.val);
+                
+                if(node.left != null) {
+                    nextQueue.Enqueue(node.left);
+                }
+                
+                if(node.right != null) {
+                    nextQueue.Enqueue(node.right);
+                }
+            }
+            
+            result.Add(levelList);
+            queue = nextQueue;
+        }
+        
+        return result;
+    }
+    
+    /*
      * 144. Binary Tree Preorder Traversal
      * https://leetcode.com/problems/binary-tree-preorder-traversal/
      * 
-     * Recursive solution, check below for iterative.
+     * Recursive solution, see below for iterative.
      */
     public IList<int> PreorderTraversal(TreeNode root, IList<int> result = null)
     {
