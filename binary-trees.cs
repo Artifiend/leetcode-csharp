@@ -2,6 +2,7 @@
 #nullable disable
 
 using System.Collections.Generic;
+using System.Numerics;
 
 // A common binary tree definition
 public class TreeNode
@@ -80,11 +81,10 @@ public class Solution
         }
     }
     // Iterative 102.
-    public IList<IList<int>> LevelOrder(TreeNode root)
+    public IList<IList<int>> LevelOrder_iterative(TreeNode root)
     {
         var queue = new Queue<TreeNode>();
         var result = new List<IList<int>>();
-        TreeNode node;
         
         if(root is null) {
             return result;
@@ -99,7 +99,7 @@ public class Solution
             
             while(queue.Count > 0)
             {
-                node = queue.Dequeue();
+                TreeNode node = queue.Dequeue();
                 levelList.Add(node.val);
                 
                 if(node.left != null) {
@@ -209,4 +209,74 @@ public class Solution
     }
     // BTW, did you notice that order of swapping
     //  and inverting child nodes isn't important?
+    
+    /*
+     * 637. Average of Levels in Binary Tree
+     * https://leetcode.com/problems/average-of-levels-in-binary-tree/
+     * 
+     * NOTE: Using long instead of BigInteger will count as completed on LeetCode,
+     *       but wouldn't be safe due to overflow on longer lists.
+     */
+    public IList<double> AverageOfLevels(TreeNode root)
+    {
+        var sum = new List<BigInteger>();
+        var length = new List<int>();
+        Helper(root, 0);
+        return sum.Zip(length, (lvlSum, lvlLen) => ((double) lvlSum) / lvlLen).ToList();
+        
+        void Helper(TreeNode node, int level)
+        {
+            if(node is null) {
+                return;
+            }
+            
+            if(sum.Count <= level) {
+                // A new level
+                sum.Add(node.val);
+                length.Add(1);
+            } else {
+                sum[level] += node.val;
+                length[level]++;
+            }
+            
+            level++;
+            Helper(node.left, level);
+            Helper(node.right, level);
+        }
+    }
+    // Alternative 637.
+    // Obsolete due to absence of built-in rationals in .NET.
+    //
+    // NOTE: Will count as completed on LeetCode,
+    //       but floating-point roundoff error will bite on longer lists.
+    public IList<double> AverageOfLevels_alternative(TreeNode root)
+    {
+        var result = new List<double>();
+        var nodesInLevel = new List<int>();
+        Helper(root, 0);
+        return result;
+        
+        void Helper(TreeNode node, int level)
+        {
+            if(node is null) {
+                return;
+            }
+            
+            if(result.Count <= level) {
+                // A new level
+                result.Add((double) node.val);
+                nodesInLevel.Add(1);
+            } else {
+                nodesInLevel[level]++;
+                // Using a slight variation of:
+                // https://en.wikipedia.org/wiki/Moving_average#Cumulative_average
+                result[level] -= (result[level] - node.val) *
+                    Math.ReciprocalEstimate(nodesInLevel[level]);
+            }
+            
+            level++;
+            Helper(node.left, level);
+            Helper(node.right, level);
+        }
+    }
 }
