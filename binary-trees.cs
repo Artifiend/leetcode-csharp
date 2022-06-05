@@ -119,6 +119,32 @@ public class Solution
     }
     
     /*
+     * 111. Minimum Depth of Binary Tree
+     * https://leetcode.com/problems/minimum-depth-of-binary-tree/
+     */
+    public int MinDepth(TreeNode root)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        return Helper(root, 1);
+        
+        int Helper(TreeNode node, int level)
+        {
+            if(node.left is null && node.right is null) {
+                return level;
+            }
+            
+            level++;
+            return Math.Min(
+                node.left is null ? int.MaxValue : Helper(node.left, level),
+                node.right is null ? int.MaxValue : Helper(node.right, level)
+            );
+        }
+    }
+    
+    /*
      * 144. Binary Tree Preorder Traversal
      * https://leetcode.com/problems/binary-tree-preorder-traversal/
      * 
