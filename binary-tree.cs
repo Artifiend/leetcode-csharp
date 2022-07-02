@@ -158,6 +158,24 @@ public class Solution
     }
     
     /*
+     * 104. Maximum Depth of Binary Tree
+     * https://leetcode.com/problems/maximum-depth-of-binary-tree/
+     */
+    public int MaxDepth(TreeNode root, int level = 0)
+    {
+        if(root is null) {
+            return level;
+        }
+        
+        ++level;
+        
+        return Math.Max(
+            MaxDepth(root.left, level),
+            MaxDepth(root.right, level)
+        );
+    }
+    
+    /*
      * 111. Minimum Depth of Binary Tree
      * https://leetcode.com/problems/minimum-depth-of-binary-tree/
      */
