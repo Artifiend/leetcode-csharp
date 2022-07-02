@@ -68,6 +68,29 @@ public class Solution
     }
     
     /*
+     * 101. Symmetric Tree
+     * https://leetcode.com/problems/symmetric-tree/
+     */
+    public bool IsSymmetric(TreeNode root)
+    {
+        return
+            root is null ||
+            Helper(root.left, root.right);
+        
+        bool Helper(TreeNode p, TreeNode q)
+        {
+            if(p is null || q is null) {
+                return p == q;
+            }
+            
+            return
+                p.val == q.val &&
+                Helper(p.left, q.right) &&
+                Helper(p.right, q.left);
+        }
+    }
+    
+    /*
      * 102. Binary Tree Level Order Traversal
      * https://leetcode.com/problems/binary-tree-level-order-traversal/
      * 
