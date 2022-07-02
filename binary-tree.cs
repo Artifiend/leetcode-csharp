@@ -237,6 +237,23 @@ public class Solution
     //  and inverting child nodes isn't important?
     
     /*
+     * 617. Merge Two Binary Trees
+     * https://leetcode.com/problems/merge-two-binary-trees/
+     */
+    public TreeNode MergeTrees(TreeNode first, TreeNode second)
+    {
+        if(first is null || second is null) {
+            return first ?? second;
+        }
+        
+        first.val += second.val;
+        first.left = MergeTrees(first.left, second.left);
+        first.right = MergeTrees(first.right, second.right);
+        
+        return first;
+    }
+    
+    /*
      * 637. Average of Levels in Binary Tree
      * https://leetcode.com/problems/average-of-levels-in-binary-tree/
      * 
