@@ -52,6 +52,22 @@ public class Solution
     }
     
     /*
+     * 100. Same Tree
+     * https://leetcode.com/problems/same-tree/
+     */
+    public bool IsSameTree(TreeNode p, TreeNode q)
+    {
+        if(p is null || q is null) {
+            return p == q;
+        }
+        
+        return
+            p.val == q.val &&
+            IsSameTree(p.left, q.left) &&
+            IsSameTree(p.right, q.right);
+    }
+    
+    /*
      * 102. Binary Tree Level Order Traversal
      * https://leetcode.com/problems/binary-tree-level-order-traversal/
      * 
@@ -168,7 +184,7 @@ public class Solution
         return result;
     }
     // Iterative 144.
-    public IList<int> PreorderTraversal_Iterative(TreeNode root)
+    public IList<int> PreorderTraversal_iterative(TreeNode root)
     {
         var result = new List<int>();
         var stack = new Stack<TreeNode>();
