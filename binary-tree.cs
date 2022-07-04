@@ -223,6 +223,36 @@ public class Solution
     }
     
     /*
+     * 113. Path Sum II
+     * https://leetcode.com/problems/path-sum-ii/
+     */
+    public IList<IList<int>> PathSum(TreeNode root, int targetSum)
+    {
+        var result = new List<IList<int>>();
+        Helper(root, new List<int>());
+        return result;
+        
+        void Helper(TreeNode root, IList<int> currentPath)
+        {
+            if(root is null) {
+                return;
+            }
+
+            currentPath.Add(root.val);
+
+            if(root.left is null && root.right is null) {
+                if(currentPath.Sum() == targetSum) {
+                    result.Add(currentPath);
+                }
+            } else {
+                // clone on the left child, in-place on the right
+                Helper(root.left, new List<int>(currentPath));
+                Helper(root.right, currentPath);
+            }
+        }
+    }
+    
+    /*
      * 144. Binary Tree Preorder Traversal
      * https://leetcode.com/problems/binary-tree-preorder-traversal/
      * 
