@@ -202,6 +202,27 @@ public class Solution
     }
     
     /*
+     * 112. Path Sum
+     * https://leetcode.com/problems/path-sum/
+     */
+    public bool HasPathSum(TreeNode root, int targetSum, int sum = 0)
+    {
+        if(root is null) {
+            return false;
+        }
+        
+        sum += root.val;
+        
+        if(root.left is null && root.right is null) {
+            return sum == targetSum;
+        } else {
+            return
+                HasPathSum(root.left, targetSum, sum) ||
+                HasPathSum(root.right, targetSum, sum);
+        }
+    }
+    
+    /*
      * 144. Binary Tree Preorder Traversal
      * https://leetcode.com/problems/binary-tree-preorder-traversal/
      * 
