@@ -323,6 +323,32 @@ public class Solution
     }
     
     /*
+     * 199. Binary Tree Right Side View
+     * https://leetcode.com/problems/binary-tree-right-side-view/
+     */
+    public IList<int> RightSideView(TreeNode root)
+    {
+        var result = new List<int>();
+        Helper(root, 0);
+        return result;
+        
+        void Helper(TreeNode root, int level)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            if(result.Count <= level) {
+                result.Add(root.val);
+            }
+            
+            ++level;
+            Helper(root.right, level);
+            Helper(root.left, level);
+        }
+    }
+    
+    /*
      * 226. Invert Binary Tree
      * https://leetcode.com/problems/invert-binary-tree/
      */
