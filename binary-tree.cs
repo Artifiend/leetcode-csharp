@@ -371,6 +371,31 @@ public class Solution
     //  and inverting child nodes isn't important?
     
     /*
+     * 331. Verify Preorder Serialization of a Binary Tree
+     * https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/
+     */
+    public bool IsValidSerialization(string preorder)
+    {
+        string[] nodes = preorder.Split(',');
+        int count = 1;
+        
+        for(int i = 0; i < nodes.Length; ++i)
+        {
+            if(count == 0) {
+                return false;
+            }
+            
+            if(nodes[i] == "#") {
+                --count;
+            } else {
+                ++count;
+            }
+        }
+        
+        return count == 0;
+    }
+    
+    /*
      * 617. Merge Two Binary Trees
      * https://leetcode.com/problems/merge-two-binary-trees/
      */
