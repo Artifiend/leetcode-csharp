@@ -554,4 +554,23 @@ public class Solution
         
         return result;
     }
+    
+    /*
+     * 404. Sum of Left Leaves
+     * https://leetcode.com/problems/sum-of-left-leaves/
+     */
+    public int SumOfLeftLeaves(TreeNode root, bool isLeft = false)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        if(root.left is null && root.right is null) {
+            return isLeft ? root.val : 0;
+        }
+        
+        return
+            SumOfLeftLeaves(root.left, true) +
+            SumOfLeftLeaves(root.right, false);
+    }
 }
