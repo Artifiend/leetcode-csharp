@@ -371,6 +371,38 @@ public class Solution
     //  and inverting child nodes isn't important?
     
     /*
+     * 257. Binary Tree Paths
+     * https://leetcode.com/problems/binary-tree-paths/
+     */
+    public IList<string> BinaryTreePaths(TreeNode root)
+    {
+        var paths = new List<IList<int>>();
+        Helper(root, new List<int>());
+        
+        return
+            paths.Select(path =>
+                 String.Join("->", path.Select(val => val.ToString()))
+             ).ToList();
+        
+        void Helper(TreeNode root, IList<int> currentPath)
+        {
+            if(root is null) {
+                return;
+            }
+
+            currentPath.Add(root.val);
+
+            if(root.left is null && root.right is null) {
+                paths.Add(currentPath);
+            } else {
+                // clone on the left child, in-place on the right
+                Helper(root.left, new List<int>(currentPath));
+                Helper(root.right, currentPath);
+            }
+        }
+    }
+    
+    /*
      * 331. Verify Preorder Serialization of a Binary Tree
      * https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/
      */
