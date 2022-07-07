@@ -573,4 +573,32 @@ public class Solution
             SumOfLeftLeaves(root.left, true) +
             SumOfLeftLeaves(root.right, false);
     }
+    
+    /*
+     * 513. Find Bottom Left Tree Value
+     * https://leetcode.com/problems/find-bottom-left-tree-value/
+     */
+    public int FindBottomLeftValue(TreeNode root)
+    {
+        int maxLevel = -1;
+        int result = 0;
+        Helper(root, 0);
+        return result;
+        
+        void Helper(TreeNode root, int level)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            if(level > maxLevel) {
+                result = root.val;
+                maxLevel = level;
+            }
+            
+            ++level;
+            Helper(root.left, level);
+            Helper(root.right, level);
+        }
+    }
 }
