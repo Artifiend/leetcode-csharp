@@ -176,6 +176,34 @@ public class Solution
     }
     
     /*
+     * 110. Balanced Binary Tree
+     * https://leetcode.com/problems/balanced-binary-tree/
+     */
+    public bool IsBalanced(TreeNode root)
+    {
+        if(root is null) {
+            return true;
+        }
+        
+        return
+            Math.Abs(Height(root.left) - Height(root.right)) <= 1 &&
+            IsBalanced(root.left) &&
+            IsBalanced(root.right);
+        
+        int Height(TreeNode root)
+        {
+            if(root is null) {
+                return 0;
+            }
+            
+            return 1 + Math.Max(
+                Height(root.left),
+                Height(root.right)
+            );
+        }
+    }
+    
+    /*
      * 111. Minimum Depth of Binary Tree
      * https://leetcode.com/problems/minimum-depth-of-binary-tree/
      */
