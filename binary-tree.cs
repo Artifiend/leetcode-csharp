@@ -207,18 +207,18 @@ public class Solution
      * 111. Minimum Depth of Binary Tree
      * https://leetcode.com/problems/minimum-depth-of-binary-tree/
      */
-    public int MinDepth(TreeNode root, int level = 0)
+    public int MinDepth(TreeNode root)
     {
         if(root is null) {
-            return level;
+            return 0;
         }
         
         int left = MinDepth(root.left);
         int right = MinDepth(root.right);
         
-        return 1 + (left * right) == 0
-            ? Math.Max(left, right)
-            : Math.Min(left, right);
+        return (left * right) == 0
+            ? 1 + Math.Max(left, right)
+            : 1 + Math.Min(left, right);
     }
     
     /*
