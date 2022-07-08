@@ -428,6 +428,35 @@ public class Solution
     }
     
     /*
+     * 508. Most Frequent Subtree Sum
+     * https://leetcode.com/problems/most-frequent-subtree-sum/
+     */
+    public int[] FindFrequentTreeSum(TreeNode root)
+    {
+        var sumsFreq = new Dictionary<int, int>();
+        Helper(root);
+        int maxCount = sumsFreq.Values.Max();
+        return
+            sumsFreq.Where(d => d.Value == maxCount)
+            .Select(d => d.Key).ToArray();
+        
+        int Helper(TreeNode root)
+        {
+            if(root is null) {
+                return 0;
+            }
+            
+            int sum =
+                root.val +
+                Helper(root.left) +
+                Helper(root.right);
+            
+            sumsFreq[sum] = CollectionExtensions.GetValueOrDefault(sumsFreq, sum) + 1;
+            return sum;
+        }
+    }
+    
+    /*
      * 617. Merge Two Binary Trees
      * https://leetcode.com/problems/merge-two-binary-trees/
      */
