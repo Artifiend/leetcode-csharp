@@ -75,9 +75,9 @@ public class Solution
     {
         return
             root is null ||
-            Helper(root.left, root.right);
+            CheckSymmetry(root.left, root.right);
         
-        bool Helper(TreeNode p, TreeNode q)
+        bool CheckSymmetry(TreeNode p, TreeNode q)
         {
             if(p is null || q is null) {
                 return p == q;
@@ -85,8 +85,8 @@ public class Solution
             
             return
                 p.val == q.val &&
-                Helper(p.left, q.right) &&
-                Helper(p.right, q.left);
+                CheckSymmetry(p.left, q.right) &&
+                CheckSymmetry(p.right, q.left);
         }
     }
     
@@ -99,10 +99,10 @@ public class Solution
     public IList<IList<int>> LevelOrder(TreeNode root)
     {
         var result = new List<IList<int>>();
-        Helper(root, 0);
+        Traverse(root, 0);
         return result;
         
-        void Helper(TreeNode node, int level)
+        void Traverse(TreeNode node, int level)
         {
             if(node is null) {
                 return;
@@ -115,8 +115,8 @@ public class Solution
             result[level].Add(node.val);
             
             level++;
-            Helper(node.left, level);
-            Helper(node.right, level);
+            Traverse(node.left, level);
+            Traverse(node.right, level);
         }
     }
     // Iterative 102.
@@ -207,26 +207,18 @@ public class Solution
      * 111. Minimum Depth of Binary Tree
      * https://leetcode.com/problems/minimum-depth-of-binary-tree/
      */
-    public int MinDepth(TreeNode root)
+    public int MinDepth(TreeNode root, int level = 0)
     {
         if(root is null) {
-            return 0;
+            return level;
         }
         
-        return Helper(root, 1);
+        int left = MinDepth(root.left);
+        int right = MinDepth(root.right);
         
-        int Helper(TreeNode node, int level)
-        {
-            if(node.left is null && node.right is null) {
-                return level;
-            }
-            
-            level++;
-            return Math.Min(
-                node.left is null ? int.MaxValue : Helper(node.left, level),
-                node.right is null ? int.MaxValue : Helper(node.right, level)
-            );
-        }
+        return 1 + (left * right) == 0
+            ? Math.Max(left, right)
+            : Math.Min(left, right);
     }
     
     /*
@@ -386,10 +378,8 @@ public class Solution
             return null;
         }
         
-        // Swap child nodes
         (root.left, root.right) = (root.right, root.left);
         
-        // Go invert children
         InvertTree(root.left);
         InvertTree(root.right);
         
@@ -405,14 +395,14 @@ public class Solution
     public IList<string> BinaryTreePaths(TreeNode root)
     {
         var paths = new List<IList<int>>();
-        Helper(root, new List<int>());
+        FindPaths(root, new List<int>());
         
         return
             paths.Select(path =>
                  String.Join("->", path.Select(val => val.ToString()))
              ).ToList();
         
-        void Helper(TreeNode root, IList<int> currentPath)
+        void FindPaths(TreeNode root, IList<int> currentPath)
         {
             if(root is null) {
                 return;
@@ -423,9 +413,9 @@ public class Solution
             if(root.left is null && root.right is null) {
                 paths.Add(currentPath);
             } else {
-                // clone on the left child, in-place on the right
-                Helper(root.left, new List<int>(currentPath));
-                Helper(root.right, currentPath);
+                // Clone on the left child, in-place on the right
+                FindPaths(root.left, new List<int>(currentPath));
+                FindPaths(root.right, currentPath);
             }
         }
     }
@@ -456,6 +446,25 @@ public class Solution
     }
     
     /*
+     * 404. Sum of Left Leaves
+     * https://leetcode.com/problems/sum-of-left-leaves/
+     */
+    public int SumOfLeftLeaves(TreeNode root, bool isLeft = false)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        if(root.left is null && root.right is null) {
+            return isLeft ? root.val : 0;
+        }
+        
+        return
+            SumOfLeftLeaves(root.left, true) +
+            SumOfLeftLeaves(root.right, false);
+    }
+    
+    /*
      * 508. Most Frequent Subtree Sum
      * https://leetcode.com/problems/most-frequent-subtree-sum/
      */
@@ -481,6 +490,34 @@ public class Solution
             
             sumsFreq[sum] = CollectionExtensions.GetValueOrDefault(sumsFreq, sum) + 1;
             return sum;
+        }
+    }
+    
+    /*
+     * 513. Find Bottom Left Tree Value
+     * https://leetcode.com/problems/find-bottom-left-tree-value/
+     */
+    public int FindBottomLeftValue(TreeNode root)
+    {
+        int maxLevel = -1;
+        int result = 0;
+        Helper(root, 0);
+        return result;
+        
+        void Helper(TreeNode root, int level)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            if(level > maxLevel) {
+                result = root.val;
+                maxLevel = level;
+            }
+            
+            ++level;
+            Helper(root.left, level);
+            Helper(root.right, level);
         }
     }
     
@@ -610,52 +647,5 @@ public class Solution
         }
         
         return result;
-    }
-    
-    /*
-     * 404. Sum of Left Leaves
-     * https://leetcode.com/problems/sum-of-left-leaves/
-     */
-    public int SumOfLeftLeaves(TreeNode root, bool isLeft = false)
-    {
-        if(root is null) {
-            return 0;
-        }
-        
-        if(root.left is null && root.right is null) {
-            return isLeft ? root.val : 0;
-        }
-        
-        return
-            SumOfLeftLeaves(root.left, true) +
-            SumOfLeftLeaves(root.right, false);
-    }
-    
-    /*
-     * 513. Find Bottom Left Tree Value
-     * https://leetcode.com/problems/find-bottom-left-tree-value/
-     */
-    public int FindBottomLeftValue(TreeNode root)
-    {
-        int maxLevel = -1;
-        int result = 0;
-        Helper(root, 0);
-        return result;
-        
-        void Helper(TreeNode root, int level)
-        {
-            if(root is null) {
-                return;
-            }
-            
-            if(level > maxLevel) {
-                result = root.val;
-                maxLevel = level;
-            }
-            
-            ++level;
-            Helper(root.left, level);
-            Helper(root.right, level);
-        }
     }
 }
