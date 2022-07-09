@@ -161,17 +161,15 @@ public class Solution
      * 104. Maximum Depth of Binary Tree
      * https://leetcode.com/problems/maximum-depth-of-binary-tree/
      */
-    public int MaxDepth(TreeNode root, int level = 0)
+    public int MaxDepth(TreeNode root)
     {
         if(root is null) {
-            return level;
+            return 0;
         }
         
-        ++level;
-        
-        return Math.Max(
-            MaxDepth(root.left, level),
-            MaxDepth(root.right, level)
+        return 1 + Math.Max(
+            MaxDepth(root.left),
+            MaxDepth(root.right)
         );
     }
     
@@ -518,6 +516,38 @@ public class Solution
             ++level;
             Helper(root.left, level);
             Helper(root.right, level);
+        }
+    }
+    
+    /*
+     * 543. Diameter of Binary Tree
+     * https://leetcode.com/problems/diameter-of-binary-tree/
+     */
+    public int DiameterOfBinaryTree(TreeNode root)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        return Math.Max(
+            MaxDepth(root.left) + MaxDepth(root.right),
+            Math.Max(
+                DiameterOfBinaryTree(root.left),
+                DiameterOfBinaryTree(root.right)
+            )
+        );
+        
+        // Reusing 104
+        int MaxDepth(TreeNode root)
+        {
+            if(root is null) {
+                return 0;
+            }
+            
+            return 1 + Math.Max(
+                Probe(root.left),
+                Probe(root.right)
+            );
         }
     }
     
