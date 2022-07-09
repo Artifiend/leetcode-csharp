@@ -711,4 +711,29 @@ public class Solution
         
         return result;
     }
+    
+    /*
+     * 654. Maximum Binary Tree
+     * https://leetcode.com/problems/maximum-binary-tree/
+     */
+    public TreeNode ConstructMaximumBinaryTree(int[] nums)
+    {
+        if(nums.Length == 0) {
+            return null;
+        }
+        
+        int maxIdx = Array.IndexOf(nums, nums.Max());
+        
+        var segment = new ArraySegment<int>(nums);
+        
+        var left = ConstructMaximumBinaryTree(
+            segment.Slice(0, maxIdx).ToArray()
+        );
+        
+        var right = ConstructMaximumBinaryTree(
+            segment.Slice(maxIdx + 1, nums.Length - 1 - maxIdx).ToArray()
+        );
+        
+        return new TreeNode(nums[maxIdx], left, right);
+    }
 }
