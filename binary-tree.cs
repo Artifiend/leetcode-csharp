@@ -522,6 +522,39 @@ public class Solution
     }
     
     /*
+     * 563. Binary Tree Tilt
+     * https://leetcode.com/problems/binary-tree-tilt/
+     */
+    public int FindTilt(TreeNode root)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        int tilt = Math.Abs(
+            SumOfTree(root.left) -
+            SumOfTree(root.right)
+        );
+        
+        return
+            tilt +
+            FindTilt(root.left) +
+            FindTilt(root.right);
+        
+        int SumOfTree(TreeNode root)
+        {
+            if(root is null) {
+                return 0;
+            }
+            
+            return
+                root.val +
+                SumOfTree(root.left) +
+                SumOfTree(root.right);
+        }
+    }
+    
+    /*
      * 617. Merge Two Binary Trees
      * https://leetcode.com/problems/merge-two-binary-trees/
      */
