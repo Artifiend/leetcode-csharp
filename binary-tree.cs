@@ -764,4 +764,32 @@ public class Solution
                 ContainsOne(root.right);
         }
     }
+    
+    /*
+     * 872. Leaf-Similar Trees
+     * https://leetcode.com/problems/leaf-similar-trees/
+     */
+    public bool LeafSimilar(TreeNode root1, TreeNode root2)
+    {
+        return Enumerable.SequenceEqual(
+            GetLeaves(root1, new List<int>()),
+            GetLeaves(root2, new List<int>())
+        );
+        
+        IList<int> GetLeaves(TreeNode root, IList<int> acc)
+        {
+            if(root is null) {
+                return acc;
+            }
+            
+            if(root.left is null && root.right is null) {
+                acc.Add(root.val);
+            } else {
+                GetLeaves(root.left, acc);
+                GetLeaves(root.right, acc);
+            }
+            
+            return acc;
+        }
+    }
 }
