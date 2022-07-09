@@ -184,19 +184,20 @@ public class Solution
         }
         
         return
-            Math.Abs(Height(root.left) - Height(root.right)) <= 1 &&
+            Math.Abs(MaxDepth(root.left) - MaxDepth(root.right)) <= 1 &&
             IsBalanced(root.left) &&
             IsBalanced(root.right);
         
-        int Height(TreeNode root)
+        // Reusing 104
+        int MaxDepth(TreeNode root)
         {
             if(root is null) {
                 return 0;
             }
             
             return 1 + Math.Max(
-                Height(root.left),
-                Height(root.right)
+                MaxDepth(root.left),
+                MaxDepth(root.right)
             );
         }
     }
@@ -735,5 +736,32 @@ public class Solution
         );
         
         return new TreeNode(nums[maxIdx], left, right);
+    }
+    
+    /*
+     * 814. Binary Tree Pruning
+     * https://leetcode.com/problems/binary-tree-pruning/
+     */
+    public TreeNode PruneTree(TreeNode root)
+    {
+        if(!ContainsOne(root)) {
+            return null;
+        }
+        
+        root.left = PruneTree(root.left);
+        root.right = PruneTree(root.right);
+        return root;
+        
+        bool ContainsOne(TreeNode root)
+        {
+            if(root is null) {
+                return false;
+            }
+            
+            return
+                root.val == 1 ||
+                ContainsOne(root.left) ||
+                ContainsOne(root.right);
+        }
     }
 }
