@@ -1,7 +1,6 @@
-﻿// LeetCode doesn't make use of null-state analysis
-#nullable disable
-
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 // A common binary tree definition
