@@ -716,4 +716,33 @@ public class Solution
             return acc;
         }
     }
+    
+    /*
+     * 894. All Possible Full Binary Trees
+     * https://leetcode.com/problems/all-possible-full-binary-trees/
+     */
+    public IList<TreeNode> AllPossibleFBT(int n)
+    {
+        var result = new List<TreeNode>();
+        
+        if(n % 2 == 0) {
+            return result;
+        }
+        
+        if(n == 1) {
+            result.Add(new TreeNode());
+            return result;
+        }
+        
+        for(int i = 1, j = n - 2; i < n; i += 2, j -= 2)
+        {
+            foreach(var l in AllPossibleFBT(i)) {
+                foreach(var r in AllPossibleFBT(j)) {
+                    result.Add(new TreeNode(0, l, r));
+                }
+            }
+        }
+        
+        return result;
+    }
 }
