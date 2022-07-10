@@ -39,7 +39,7 @@ public class ReadmeGenerator
                 
                 if(linkFlag) {
                     sb.Append($"({ line }) | ");
-                    sb.AppendLine($"[(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/{ file }#L{ lineNum })");
+                    sb.AppendLine($"[(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/{ filename }#L{ lineNum })");
                     linkFlag = false;
                     continue;
                 }
