@@ -18,17 +18,8 @@ public class TreeNode
     }
 }
 
-public class Solution
+public partial class Solution
 {
-    private static void Main()
-    {
-        // Testing area
-        
-        
-        
-        // Intentionally left blank
-    }
-    
     /*
      * 94. Binary Tree Inorder Traversal
      * https://leetcode.com/problems/binary-tree-inorder-traversal/
