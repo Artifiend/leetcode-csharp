@@ -30,11 +30,12 @@ public class ReadmeGenerator
             sb.AppendLine("| # | Title | Source |");
             sb.AppendLine("|:-:| ----- |:------:|");
             
-            int lineNum = 1;
+            int lineNum = -1;
             bool linkFlag = false;
             
             foreach (string rawLine in File.ReadAllLines(file))
             {
+                ++lineNum;
                 string line = rawLine.TrimStart(new char[] { ' ', '*' });
                 
                 if(linkFlag) {
@@ -51,8 +52,6 @@ public class ReadmeGenerator
                     sb.Append($"{ probNum } | [{ probTitle }]");
                     linkFlag = true;
                 }
-                
-                ++lineNum;
             }
         }
         
