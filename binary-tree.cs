@@ -739,6 +739,41 @@ public class Solution
     }
     
     /*
+     * 687. Longest Univalue Path
+     * https://leetcode.com/problems/longest-univalue-path/
+     */
+    public int LongestUnivaluePath(TreeNode root)
+    {
+        if(root is null) {
+            return 0;
+        }
+        
+        int pathLength =
+            PathLength(root.left, root.val) +
+            PathLength(root.right, root.val);
+        
+        return Math.Max(
+            pathLength,
+            Math.Max(
+                LongestUnivaluePath(root.left),
+                LongestUnivaluePath(root.right)
+            )
+        );
+        
+        int PathLength(TreeNode root, int target)
+        {
+            if(root is null || root.val != target) {
+                return 0;
+            }
+            
+            return 1 + Math.Max(
+                PathLength(root.left, target),
+                PathLength(root.right, target)
+            );
+        }
+    }
+    
+    /*
      * 814. Binary Tree Pruning
      * https://leetcode.com/problems/binary-tree-pruning/
      */
