@@ -770,4 +770,26 @@ public partial class Solution
             a.left?.val == b.right?.val &&
             b.left?.val == a.right?.val;
     }
+    
+    /*
+     * 965. Univalued Binary Tree
+     * https://leetcode.com/problems/univalued-binary-tree/
+     */
+    public bool IsUnivalTree(TreeNode root)
+    {
+        int target = root.val;
+        return IsUnivalued(root);
+        
+        bool IsUnivalued(TreeNode root)
+        {
+            if(root == null) {
+                return true;
+            }
+            
+            return
+                root.val == target &&
+                IsUnivalued(root.left) &&
+                IsUnivalued(root.right);
+         }
+    }
 }
