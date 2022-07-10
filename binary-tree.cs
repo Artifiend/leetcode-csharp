@@ -680,6 +680,69 @@ public partial class Solution
     }
     
     /*
+     * 863. All Nodes Distance K in Binary Tree
+     * https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+     */
+    public IList<int> DistanceK(TreeNode root, TreeNode target, int k)
+    {
+        var result = new List<int>();
+        Traverse(root);
+        return result;
+        
+        int Traverse(TreeNode root)
+        {
+            if(root is null) {
+                return -1;
+            }
+            
+            if(root == target) {
+                if(k == 0) {
+                    result.Add(root.val);
+                }
+                Descend(root.left, k - 1);
+                Descend(root.right, k - 1);
+                return k - 1;
+            }
+            
+            int left = Traverse(root.left);
+            int right = Traverse(root.right);
+            
+            if(left != -1) {
+                if(left == 0) {
+                    result.Add(root.val);
+                    return -1;
+                }
+                Descend(root.right, left - 1);
+                return left - 1;
+            } else if(right != - 1) {
+                if(right == 0) {
+                    result.Add(root.val);
+                    return -1;
+                }
+                Descend(root.left, right - 1);
+                return right - 1;
+            }
+            
+            return -1;
+        }
+        
+        void Descend(TreeNode root, int steps)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            if(steps == 0) {
+                result.Add(root.val);
+                return;
+            }
+            
+            Descend(root.left, steps - 1);
+            Descend(root.right, steps - 1);
+        }
+    }
+    
+    /*
      * 872. Leaf-Similar Trees
      * https://leetcode.com/problems/leaf-similar-trees/
      */
