@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 // A common binary tree definition
 public class TreeNode
@@ -735,5 +734,40 @@ public partial class Solution
         }
         
         return result;
+    }
+    
+    /*
+     * 951. Flip Equivalent Binary Trees
+     * https://leetcode.com/problems/flip-equivalent-binary-trees/
+     */
+    public bool FlipEquiv(TreeNode a, TreeNode b)
+    {
+        if(a is null || b is null) {
+            return a == b;
+        }
+        
+        if(a.val != b.val) {
+            return false;
+        }
+        
+        if(AreSameNodes(a, b)) {
+            return
+                FlipEquiv(a.left, b.left) &&
+                FlipEquiv(a.right, b.right);
+        } else if(AreFlippedNodes(a, b)) {
+            return
+                FlipEquiv(a.left, b.right) &&
+                FlipEquiv(b.left, a.right);
+        } else {
+            return false;
+        }
+        
+        bool AreSameNodes(TreeNode a, TreeNode b) =>
+            a.left?.val == b.left?.val &&
+            a.right?.val == b.right?.val;
+        
+        bool AreFlippedNodes(TreeNode a, TreeNode b) =>
+            a.left?.val == b.right?.val &&
+            b.left?.val == a.right?.val;
     }
 }
