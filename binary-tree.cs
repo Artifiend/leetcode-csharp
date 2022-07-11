@@ -855,4 +855,42 @@ public partial class Solution
                 IsUnivalued(root.right);
          }
     }
+    
+    /*
+     * 987. Vertical Order Traversal of a Binary Tree
+     * https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+     */
+    public IList<IList<int>> VerticalTraversal(TreeNode root)
+    {
+        var result = new SortedDictionary<int, SortedDictionary<int, IList<int>>>();
+        Traverse(root, 0, 0);
+        
+        foreach(var c in result) {
+            foreach(var r in c.Value) {
+                (r.Value as List<int>).Sort();
+            }
+        }
+        
+        return result.Select(c => c.Value.SelectMany(r => r.Value).ToArray()).ToArray();
+        
+        void Traverse(TreeNode root, int col, int row)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            if(!result.ContainsKey(col)) {
+                result[col] = new SortedDictionary<int, IList<int>>();
+            }
+            
+            if(!result[col].ContainsKey(row)) {
+                result[col][row] = new List<int>();
+            }
+            
+            result[col][row].Add(root.val);
+            
+            Traverse(root.left, col - 1, row + 1);
+            Traverse(root.right, col + 1, row + 1);
+        }
+    }
 }
