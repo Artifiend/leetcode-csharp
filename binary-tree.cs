@@ -893,4 +893,32 @@ public partial class Solution
             Traverse(root.right, col + 1, row + 1);
         }
     }
+    
+    /*
+     * 988. Smallest String Starting From Leaf
+     * https://leetcode.com/problems/smallest-string-starting-from-leaf/
+     */
+    public string SmallestFromLeaf(TreeNode root)
+    {
+        var result = new List<string>();
+        Paths(root, new List<char>());
+        return result.Min();
+        
+        void Paths(TreeNode root, IEnumerable<char> acc)
+        {
+            if(root is null) {
+                return;
+            }
+            
+            acc = acc.Prepend((char) (root.val + ((int) 'a')));
+            
+            if(root.left is null && root.right is null) {
+                result.Add(new string(acc.ToArray()));
+                return;
+            }
+            
+            Paths(root.left, acc);
+            Paths(root.right, acc);
+        }
+    }
 }
