@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 
 public class ListNode
 {
@@ -49,5 +50,22 @@ public partial class Solution
             right.next = MergeTwoLists(left, right.next);
             return right;
         }
+    }
+    
+    /*
+     * 23. Merge k Sorted Lists
+     * https://leetcode.com/problems/merge-k-sorted-lists/
+     */
+    public ListNode MergeKLists(ListNode[] lists)
+    {
+        var min = lists.MinBy(l => l?.val);
+        
+        if(min != null) {
+            var minIdx = Array.IndexOf(lists, min);
+            lists[minIdx] = lists[minIdx].next;
+            min.next = MergeKLists(lists);
+        }
+        
+        return min;
     }
 }
