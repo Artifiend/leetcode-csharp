@@ -43,13 +43,13 @@ public partial class Solution
             return left ?? right;
         }
         
-        if(left.val <= right.val) {
-            left.next = MergeTwoLists(left.next, right);
-            return left;
-        } else {
-            right.next = MergeTwoLists(left, right.next);
-            return right;
-        }
+        var (min, max) =
+            left.val <= right.val
+            ? (left, right)
+            : (right, left);
+        
+        min.next = MergeTwoLists(min.next, max);
+        return min;
     }
     
     /*
