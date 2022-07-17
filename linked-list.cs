@@ -68,4 +68,20 @@ public partial class Solution
         
         return min;
     }
+    
+    /*
+     * 24. Swap Nodes in Pairs
+     * https://leetcode.com/problems/swap-nodes-in-pairs/
+     */
+    public ListNode SwapPairs(ListNode head)
+    {
+        if(head?.next is null) {
+            return head;
+        }
+        
+        var newHead = head.next;
+        head.next = SwapPairs(newHead.next);
+        newHead.next = head;
+        return newHead;
+    }
 }
