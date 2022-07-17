@@ -84,4 +84,19 @@ public partial class Solution
         newHead.next = head;
         return newHead;
     }
+    
+    /*
+     * 83. Remove Duplicates from Sorted List
+     * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+     */
+    public ListNode DeleteDuplicates(ListNode head)
+    {
+        if(head?.next is null) {
+            return head;
+        }
+        
+        head.next = DeleteDuplicates(head.next);
+        
+        return head.val == head.next.val ? head.next : head;
+    }
 }
