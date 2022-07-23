@@ -34,5 +34,9 @@
 ## [ Linked List](https://leetcode.com/tag/linked-list/)
 | # | Title | Source |
 |:-:| ----- |:------:|
-2 | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L19)
-21 | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L36)
+2 | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L20)
+19 | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L37)
+21 | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L62)
+23 | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L81)
+24 | [Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L98)
+83 | [Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L114)

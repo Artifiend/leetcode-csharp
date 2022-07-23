@@ -34,6 +34,31 @@ public partial class Solution
     }
     
     /*
+     * 19. Remove Nth Node From End of List
+     * https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+     */
+    public ListNode RemoveNthFromEnd(ListNode head, int n)
+    {
+        var dummy = new ListNode(0, head);
+        Remove(dummy, dummy, n);
+        return dummy.next;
+        
+        void Remove(ListNode fast, ListNode slow, int diff)
+        {
+            if(fast is null) {
+                slow.next = slow.next.next;
+                return;
+            }
+            
+            if(diff < 0) {
+                slow = slow.next;
+            }
+            
+            Remove(fast.next, slow, diff - 1);
+        }
+    }
+    
+    /*
      * 21. Merge Two Sorted Lists
      * https://leetcode.com/problems/merge-two-sorted-lists/
      */
