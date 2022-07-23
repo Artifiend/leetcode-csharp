@@ -139,6 +139,39 @@ public partial class Solution
     }
     
     /*
+     * 61. Rotate List
+     * https://leetcode.com/problems/rotate-list/
+     */
+    public ListNode RotateRight(ListNode head, int k)
+    {
+        int len = Length(head);
+        if(len == 0 || k == 0 || k % len == 0) {
+            return head;
+        }
+        
+        var newHead = CutAt(head, len - (k % len));
+        Append(newHead, head);
+        return newHead;
+        
+        ListNode Append(ListNode head, ListNode tail) =>
+            head.next is null ? head.next = tail : Append(head.next, tail);
+        
+        ListNode CutAt(ListNode head, int k)
+        {
+            if(k <= 1) {
+                var res = head.next;
+                head.next = null;
+                return res;
+            }
+            
+            return CutAt(head.next, k - 1);
+        }
+        
+        int Length(ListNode head) =>
+            head is null ? 0 : 1 + Length(head.next);
+    }
+    
+    /*
      * 83. Remove Duplicates from Sorted List
      * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
      */
