@@ -124,4 +124,19 @@ public partial class Solution
         
         return head.val == head.next.val ? head.next : head;
     }
+    
+    /*
+     * 206. Reverse Linked List
+     * https://leetcode.com/problems/reverse-linked-list/
+     */
+    public ListNode ReverseList(ListNode head, ListNode prev = null)
+    {
+        if(head is null) {
+            return prev;
+        }
+        
+        var newHead = ReverseList(head.next, head);
+        head.next = prev;
+        return newHead;
+    }
 }
