@@ -172,16 +172,37 @@ public partial class Solution
     }
     
     /*
+     * 82. Remove Duplicates from Sorted List II
+     * https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+     */
+    public ListNode DeleteDuplicates(ListNode head)
+    {
+        if(head is null) {
+            return null;
+        }
+        
+        if(head.val == head.next?.val) {
+            return DeleteDuplicates(DropVal(head.next, head.val));
+        } else {
+            head.next = DeleteDuplicates(head.next);
+            return head;
+        }
+        
+        ListNode DropVal(ListNode head, int target) =>
+            head is null || head.val != target ? head : DropVal(head.next, target);
+    }
+    
+    /*
      * 83. Remove Duplicates from Sorted List
      * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
      */
-    public ListNode DeleteDuplicates(ListNode head)
+    public ListNode DeleteDuplicates_(ListNode head)
     {
         if(head?.next is null) {
             return head;
         }
         
-        head.next = DeleteDuplicates(head.next);
+        head.next = DeleteDuplicates_(head.next);
         
         return head.val == head.next.val ? head.next : head;
     }

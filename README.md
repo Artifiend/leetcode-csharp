@@ -39,4 +39,7 @@
 21 | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L62)
 23 | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L81)
 24 | [Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L98)
-83 | [Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L114)
+61 | [Rotate List](https://leetcode.com/problems/rotate-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L142)
+82 | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L175)
+83 | [Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L196)
+206 | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [(click)](https://github.com/Artifiend/leetcode-csharp/blob/master/linked-list.cs#L211)
