@@ -111,6 +111,34 @@ public partial class Solution
     }
     
     /*
+     * 25. Reverse Nodes in k-Group
+     * https://leetcode.com/problems/reverse-nodes-in-k-group/
+     */
+    public ListNode ReverseKGroup(ListNode head, int k)
+    {
+        var lastOfGroup = AdvanceKSteps(head, k - 1);
+        
+        if(lastOfGroup != null) {
+            ReverseK(head, ReverseKGroup(lastOfGroup.next, k), k);
+        }
+        
+        return lastOfGroup ?? head;
+        
+        ListNode AdvanceKSteps(ListNode head, int k) =>
+            head is null || k == 0 ? head : AdvanceKSteps(head.next, k - 1);
+        
+        void ReverseK(ListNode head, ListNode prev, int k)
+        {
+            if(k == 0) {
+                return;
+            }
+
+            ReverseK(head.next, head, k - 1);
+            head.next = prev;
+        }
+    }
+    
+    /*
      * 83. Remove Duplicates from Sorted List
      * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
      */
